@@ -15,6 +15,7 @@ int main(){
 
   //Declaração dos Tipos Abstratos de Dados (TADs).
   TipoMatriz Principal;
+  TipoVetor Vetor;
   TVoo vooReserva;
 
   //Declaração das variáveis básicas.

@@ -9,10 +9,6 @@ void IniciaItemVetor(TipoItemVetor *ItemVetor){
   IniciaMatriz(&ItemVetor -> Matriz);
 }
 
-void IniciaVetor(TipoVetor *Vetor, TipoItemVetor *ItemVetor){
-  int i, posicao;
-
-  for (i=0; i < Vetor->Tamanho; i++){
-    Vetor[i].Vetor = &ItemVetor;
-  }
+void IniciaVetor(TipoVetor *Vetor, int Tamanho){
+  Vetor->Matriz = (TipoMatriz *)malloc(Tamanho*sizeof(TipoMatriz));
 }

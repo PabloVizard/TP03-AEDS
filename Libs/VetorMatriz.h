@@ -7,16 +7,15 @@
 #define VETORMATRIZ_H
 
 typedef struct{
-  TipoMatriz Matriz;
+  TipoMatriz* Matriz;
 }TipoItemVetor;
 
 typedef struct{
-  int Tamanho;
-  TipoItemVetor Vetor[];
+  TipoItemVetor Item;
 }TipoVetor;
 
 void IniciaItemVetor(TipoItemVetor *ItemVetor);
 
-void IniciaVetor(TipoVetor *Vetor, TipoItemVetor *ItemVetor);
+void IniciaVetor(TipoVetor *Vetor, int Tamanho);
 
 #endif
