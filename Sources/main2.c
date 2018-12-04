@@ -31,8 +31,7 @@ int main(){
 
   char nomeArquivo[50];
 
-  int AeroportoDeDecolagem[0];
-  int AeroportoDePouso[3];
+  int aux1, aux2, aux3;
 
   printf("====================================================================\n");
   printf("|                      Seja Bem-vindo(a)!                          |\n");
@@ -109,28 +108,24 @@ int main(){
 
 //===========================================================================
 
-        for(i = 0; i < 3; i++){
-          AeroportoDeDecolagem[i] = i+65;
-        }
+        aux1 = (rand()%25)+65;
+        aux2 = (rand()%25)+65;
+        aux3 = (rand()%25)+65;
 
-        for(i = 0; i < 3; i++){
-          vooReserva.aeroportoDecolagem[i] = (char) AeroportoDeDecolagem[i];
-        }
+        vooReserva.aeroportoPouso[0] = aux1;
+        vooReserva.aeroportoPouso[1] = aux2;
+        vooReserva.aeroportoPouso[2] = aux3;
 //===========================================================================
 
-        /*for(j = 0; j < 3; j++){
-          AeroportoDePouso[j] = j+65;
-        }
+        aux1 = (rand()%25)+65;
+        aux2 = (rand()%25)+65;
+        aux3 = (rand()%25)+65;
 
-        for(j = 0; j < 3; j++){
-          vooReserva.aeroportoPouso[j] = (char) AeroportoDePouso[j];
-        }*/
+        vooReserva.aeroportoDecolagem[0] = aux1;
+        vooReserva.aeroportoDecolagem[1] = aux2;
+        vooReserva.aeroportoDecolagem[2] = aux3;
 
 //===========================================================================
-        for(i = 0; i < 3; i++)
-          printf("%c\n", vooReserva.aeroportoDecolagem[i]);
-        printf("%s\n", vooReserva.aeroportoPouso);
-
         vooReserva.identificadorPista = (rand()%100);
 
         InserirMVoo(&Principal, &vooReserva);

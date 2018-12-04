@@ -189,7 +189,10 @@ void ImprimirMatriz(TipoMatriz Matriz){
           printf("Vid: %.4d\n", pAtual->Voo.vid);
           printf("Horario de Decolagem: %.2d:%.2d\n", pAtual->Voo.horaDecolagem,pAtual->Voo.minutosDecolagem);
           printf("Horario de Pouso: %.2d:%.2d\n", pAtual->Voo.horaPouso, pAtual->Voo.minutosPouso);
-          printf("Aeroporto de Decolagem: %s \n", pAtual->Voo.aeroportoDecolagem);
+          printf("Aeroporto de Decolagem: ");
+          for(int i=0;i<3;i++)
+            printf("%c", pAtual->Voo.aeroportoDecolagem[i]);
+          printf("\n");
           printf("Aeroporto de Pouso: %s\n", pAtual->Voo.aeroportoPouso);
           printf("Identificador de Pista: %d\n", pAtual->Voo.identificadorPista);
           printf("====================================================================\n\n");
