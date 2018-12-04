@@ -8,14 +8,12 @@
 
 typedef struct{
   TipoMatriz* Matriz;
-}TipoItemVetor;
-
-typedef struct{
-  TipoItemVetor Item;
 }TipoVetor;
 
-void IniciaItemVetor(TipoItemVetor *ItemVetor);
+//void IniciaItemVetor(TipoItemVetor *ItemVetor);
 
-void IniciaVetor(TipoVetor *Vetor, int Tamanho);
+void AlocaVetor(TipoVetor *Vetor, int Tamanho);
+
+void PreencheVetor(TipoVetor *Vetor, int cenario);
 
 #endif

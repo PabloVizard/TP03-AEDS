@@ -37,6 +37,10 @@ int main(){
 
   int aux1, aux2, aux3;
 
+
+//>>>>> CENARIO 01 <<<<<<<<
+  int tamanho = 365;
+
   for(i = 0; i < 10; i++)
     {
       //Criando voos aleatoriamente
@@ -73,14 +77,14 @@ int main(){
       vooReserva.identificadorPista = (rand()%100);
 
       InserirMVoo(&Principal, &vooReserva);
-      ImprimirMatriz(Principal);
+      //ImprimirMatriz(Principal);
 }
 
-  TipoItemVetor Item;
-  TipoVetor Vetor;
-  Vetor.Tamanho = 73;
-  IniciaItemVetor(&Item);
-  IniciaVetor(&Vetor, &Item);
+  //TipoItemVetor Item;
+  //TipoVetor VetorMatriz;
+  //VetorMatriz.Tamanho = 73;
+  //IniciaItemVetor(&Item);
+  AlocaVetor(&Vetor, tamanho);
     /*else if(modo == 2){
       FILE *arq;
       menu_arquivo();
