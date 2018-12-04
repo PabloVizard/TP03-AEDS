@@ -8,6 +8,7 @@
 #include "../Libs/MatrizVoos.h"
 #include "../Libs/voo.h"
 #include "../Libs/menu.h"
+#include "../Libs/VetorMatriz.h"
 
 int main(){
   srand(time(NULL)); //Utilizamos esse comando para podermos usar numeros aleatorios para o vid
@@ -31,108 +32,88 @@ int main(){
 
   char nomeArquivo[50];
 
+  int horario, auxhorariodecolagem, auxhorariopouso;
+
   int aux1, aux2, aux3;
 
-  printf("====================================================================\n");
-  printf("|                      Seja Bem-vindo(a)!                          |\n");
-  printf("====================================================================\n");
-  printf("\n");
+  int m1, m2, m3, m4;
 
-  while(modoAuxiliar != 0){
-    menu_de_entradas();
-    scanf(" %d", &modo);
+  m1 = (rand()%23);
+  m2 = (rand()%23);
+  m3 = (rand()%23);
+  m4 = (rand()%23);
 
-    if(modo == 0){
-      menu_de_confirmacao();
-      /*
-      O scanf a seguir identifica o caracter digitado pelo usuário e então
-      usando a função toupper o caracter é convertido para maiúsculo, após
-      este processo, ele é convertido para int e, sendo os caracteres letras
-      maiúsculas, elas, ao serem convertidas para int tem seu valor a partir
-      de 65, após isso, ao decrescer 64 unidades, obtemos valores a partir de
-      1.
+  while(m1 == m2){
+    m2 = (rand()%23);
+  }
+  while(m1 == m3){
+    m3 = (rand()%23);
+  }
+  while(m1 == m4){
+    m4 = (rand()%23);
+  }
 
-      Ao fim é conferido se o intConfirma == 19, o que significaria que a pessoa
-      digitou 'S' ou 's', indicando que ela realmente quer parar a execução
-      do programa
-      */
-      scanf(" %c", &confirma);
-      printf("\n");
-      confirma = toupper(confirma);
-      intConfirma = confirma - 64;
+  while (m2 == m3){
+    m3 = (rand()%23);
+  }
+  while(m2 == m4){
+    m4 = (rand()%23);
+  }
 
-      if(intConfirma == 19){
-        menu_de_saida();
-        modoAuxiliar = 0;
-      }
-    }
-    else if(modo ==1){
-      /*
-      Confirmando que o operadorAuxiliar = 1 antes de iniciar o programa, para
-      caso o usuário alguma hora interrompa o modo interativo e queira retornar
-      a usá-lo.
-      */
-      operadorAuxiliar = 1;
+  while (m3 == m4){
+    m4 = (rand()%23);
+  }
 
-      printf("====================================================================\n");
-      printf("                       MODO INTERATIVO\n");
-      while(operadorAuxiliar != 0){
-        menu_de_opcoes();
-        /*
-        O processo a seguir se assemelha muito ao já usado anteriormente, agora
-        ele verifica cada um dos casos.
+  printf("%d\n", m1);
+  printf("%d\n", m2);
+  printf("%d\n", m3);
+  printf("%d\n", m4);
 
-        a -> 1
-        b -> 2
-        .
-        .
-        .
-        m -> 13
-        E finalmente:
-        s -> 19, que por fim indica que se deseja parar a execução do programa.
-        */
-        scanf(" %c", &op);
-        op = toupper(op);
-        intOperador = op - 64;
+  for(i = 0; i < 10; i++)
+    {
+      //Criando voos aleatoriamente
+      IniciaMatriz(&Principal);
+      IniciaVoo(&vooReserva);
+      SetVid(&vooReserva);
 
-        //Criando voos aleatoriamente
-        IniciaMatriz(&Principal);
-        IniciaVoo(&vooReserva);
-        SetVid(&vooReserva);
+      vooReserva.horaDecolagem = (rand()%23);
+      vooReserva.minutosDecolagem = (rand()%59);
 
-        vooReserva.horaDecolagem = (rand()%23);
-        vooReserva.minutosDecolagem = (rand()%59);
+      vooReserva.horaPouso = (rand()%23);
+      vooReserva.minutosPouso = (rand()%59);
 
-        vooReserva.horaPouso = (rand()%23);
-        vooReserva.minutosPouso = (rand()%59);
+    //===========================================================================
 
-//===========================================================================
+      aux1 = (rand()%25)+65;
+      aux2 = (rand()%25)+65;
+      aux3 = (rand()%25)+65;
 
-        aux1 = (rand()%25)+65;
-        aux2 = (rand()%25)+65;
-        aux3 = (rand()%25)+65;
+      vooReserva.aeroportoPouso[0] = aux1;
+      vooReserva.aeroportoPouso[1] = aux2;
+      vooReserva.aeroportoPouso[2] = aux3;
+    //===========================================================================
 
-        vooReserva.aeroportoPouso[0] = aux1;
-        vooReserva.aeroportoPouso[1] = aux2;
-        vooReserva.aeroportoPouso[2] = aux3;
-//===========================================================================
+      aux1 = (rand()%25)+65;
+      aux2 = (rand()%25)+65;
+      aux3 = (rand()%25)+65;
 
-        aux1 = (rand()%25)+65;
-        aux2 = (rand()%25)+65;
-        aux3 = (rand()%25)+65;
+      vooReserva.aeroportoDecolagem[0] = aux1;
+      vooReserva.aeroportoDecolagem[1] = aux2;
+      vooReserva.aeroportoDecolagem[2] = aux3;
 
-        vooReserva.aeroportoDecolagem[0] = aux1;
-        vooReserva.aeroportoDecolagem[1] = aux2;
-        vooReserva.aeroportoDecolagem[2] = aux3;
+    //===========================================================================
+      vooReserva.identificadorPista = (rand()%100);
 
-//===========================================================================
-        vooReserva.identificadorPista = (rand()%100);
+      InserirMVoo(&Principal, &vooReserva);
+      ImprimirMatriz(Principal);
+}
 
-        InserirMVoo(&Principal, &vooReserva);
-        ImprimirMatriz(Principal);
-        /*
-}}
-    else if(modo == 2){
+  TipoItemVetor Item;
+  TipoVetor Vetor;
+  Vetor.Tamanho = 365;
+  IniciaItemVetor(&Item);
+  IniciaVetor(&Vetor);
+    /*else if(modo == 2){
       FILE *arq;
       menu_arquivo();
       scanf("%s", nomeArquivo);
@@ -230,7 +211,6 @@ int main(){
           }
         }
       }
-    }
-  }*/
+    }*/
   return 0;
-}}}}
+}

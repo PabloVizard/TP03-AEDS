@@ -17,6 +17,6 @@ typedef struct{
 
 void IniciaItemVetor(TipoItemVetor *ItemVetor);
 
-void IniciaVetor(TipoVetor *Vetor);
+void IniciaVetor(TipoVetor *Vetor, TipoItemVetor *ItemVetor);
 
 #endif
