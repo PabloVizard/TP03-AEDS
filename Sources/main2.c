@@ -110,9 +110,9 @@ int main(){
 
   TipoItemVetor Item;
   TipoVetor Vetor;
-  Vetor.Tamanho = 365;
+  Vetor.Tamanho = 73;
   IniciaItemVetor(&Item);
-  IniciaVetor(&Vetor);
+  IniciaVetor(&Vetor, &Item);
     /*else if(modo == 2){
       FILE *arq;
       menu_arquivo();

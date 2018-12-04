@@ -11,9 +11,8 @@ void IniciaItemVetor(TipoItemVetor *ItemVetor){
 
 void IniciaVetor(TipoVetor *Vetor, TipoItemVetor *ItemVetor){
   int i, posicao;
-  posicao = rand()%365;
 
   for (i=0; i < Vetor->Tamanho; i++){
-    Vetor[posicao] = ItemVetor;
+    Vetor[i] = &ItemVetor;
   }
 }
