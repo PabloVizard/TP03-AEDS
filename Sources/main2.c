@@ -36,39 +36,6 @@ int main(){
 
   int aux1, aux2, aux3;
 
-  int m1, m2, m3, m4;
-
-  m1 = (rand()%23);
-  m2 = (rand()%23);
-  m3 = (rand()%23);
-  m4 = (rand()%23);
-
-  while(m1 == m2){
-    m2 = (rand()%23);
-  }
-  while(m1 == m3){
-    m3 = (rand()%23);
-  }
-  while(m1 == m4){
-    m4 = (rand()%23);
-  }
-
-  while (m2 == m3){
-    m3 = (rand()%23);
-  }
-  while(m2 == m4){
-    m4 = (rand()%23);
-  }
-
-  while (m3 == m4){
-    m4 = (rand()%23);
-  }
-
-  printf("%d\n", m1);
-  printf("%d\n", m2);
-  printf("%d\n", m3);
-  printf("%d\n", m4);
-
   for(i = 0; i < 10; i++)
     {
       //Criando voos aleatoriamente

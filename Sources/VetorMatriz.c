@@ -13,6 +13,6 @@ void IniciaVetor(TipoVetor *Vetor, TipoItemVetor *ItemVetor){
   int i, posicao;
 
   for (i=0; i < Vetor->Tamanho; i++){
-    Vetor[i] = &ItemVetor;
+    Vetor[i].Vetor = &ItemVetor;
   }
 }
