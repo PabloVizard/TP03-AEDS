@@ -11,11 +11,15 @@
 //}
 
 void AlocaVetor(TipoVetor *Vetor, int Tamanho){
+  int i;
   Vetor->Matriz = (TipoMatriz *)malloc(Tamanho*sizeof(TipoMatriz));
+  for(i=0; i<Tamanho; i++){
+    IniciaMatriz(&(Vetor->Matriz[i]));
+  }
 }
 
 void PreencheVetor(TipoVetor *Vetor, int cenario){
-  int i = 0, j = 0;
+  int i = 0, j = 0, a=0, b=0;
   if(cenario%2==1){                 // Se o cenário for ímpar, preencherá 20% das matrizes
     if(cenario==1 || cenario==3){
       i=73;
@@ -25,9 +29,9 @@ void PreencheVetor(TipoVetor *Vetor, int cenario){
       i=7300;
     }
   }else{                            // Se o cenário for par, preencherá 100% das matrizes
-    if(cenario==1 || cenario==3){
+    if(cenario==2 || cenario==4){
       i=365;
-    }else if(cenario==5 || cenario==7){
+    }else if(cenario==6 || cenario==8){
       i=3650;
     }else{
       i=36500;
@@ -38,6 +42,11 @@ void PreencheVetor(TipoVetor *Vetor, int cenario){
   }else{                                  // se o resto da divisão do cenário por 4 for igual a 3 ou 0, cada matriz terá 100 voos
     j=100;
   }
-    
+
+    for(a=0; a < i; a++){
+      for(b=0; b < j; b++){
+
+      }
+    }
 
 }
