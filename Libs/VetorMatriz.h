@@ -16,6 +16,6 @@ void AlocaVetor(TipoVetor *Vetor, int Tamanho);
 
 void PreencheVetor(TipoVetor *Vetor, int cenario);
 
-void vooAleatorio();
+void vooAleatorio(TipoMatriz *itemMatriz);
 
 #endif

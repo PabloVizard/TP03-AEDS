@@ -19,8 +19,8 @@ void AlocaVetor(TipoVetor *Vetor, int Tamanho){
   }
 }
 
-void vooAleatorio(){
-  TipoMatriz Principal;
+void vooAleatorio(TipoMatriz *itemMatriz){
+
   TVoo vooReserva;
 
   //Declaração das variáveis básicas.
@@ -31,7 +31,7 @@ void vooAleatorio(){
   for(i = 0; i < 10; i++)
     {
       //Criando voos aleatoriamente
-      IniciaMatriz(&Principal);
+
       IniciaVoo(&vooReserva);
       SetVid(&vooReserva);
 
@@ -63,7 +63,7 @@ void vooAleatorio(){
     //===========================================================================
       vooReserva.identificadorPista = (rand()%100);
 
-      InserirMVoo(&Principal, &vooReserva);
+      InserirMVoo(itemMatriz, &vooReserva);
       //ImprimirMatriz(Principal);
 }}
 
@@ -94,7 +94,7 @@ void PreencheVetor(TipoVetor *Vetor, int cenario){
 
     for(a=0; a < i; a++){
       for(b=0; b < j; b++){
-        vooAleatorio();
+        vooAleatorio(&Vetor->Matriz[a]);
       }
     }
 
