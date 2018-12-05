@@ -241,6 +241,9 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
 
     TipoVetor VetorAUX;
 
+    struct timeval inicio, fim;
+    gettimeofday(&inicio, NULL);
+
     int h = 1;
     while(h < Tamanho) {
         h = 3 * h + 1;
@@ -261,6 +264,13 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
             Movimentacao ++;
         }
     }
+
+    gettimeofday(&fim, NULL);
+
+    printf("\n====================================================================\n");
+    printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+    printf("\n====================================================================\n");
+
 }
 
 //========== QUICK SORT ==================//
@@ -306,7 +316,17 @@ void Ordena(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *
 
 void QuickSort(TipoVetor *Vetor, int n){
   long int Comparacao = 0, Movimentacao = 0;
+
+  struct timeval inicio, fim;
+  gettimeofday(&inicio, NULL);
+
   Ordena(0, n-1, Vetor, &Comparacao, &Movimentacao);
+
+  gettimeofday(&fim, NULL);
+
+  printf("\n====================================================================\n");
+  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("\n====================================================================\n");
 }
 
 //========== HEAP SORT ==================//
@@ -348,6 +368,10 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
   int Esq, Dir;
   long int Comparacao = 0, Movimentacao = 0;
   TipoVetor VetorAUX;
+
+  struct timeval inicio, fim;
+  gettimeofday(&inicio, NULL);
+
   Constroi(Vetor, Tamanho, &Comparacao, &Movimentacao);  /* constroi o heap */
   Esq = 1; Dir = *Tamanho;
   Comparacao ++;
@@ -359,4 +383,11 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
     Dir--;
     Refaz(Esq, Dir, Vetor, &Comparacao, &Movimentacao);
     }
-  }
+
+  gettimeofday(&fim, NULL);
+
+  printf("\n====================================================================\n");
+  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("\n====================================================================\n");
+
+}
