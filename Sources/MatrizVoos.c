@@ -24,7 +24,7 @@ void IniciaMatriz(TipoMatriz *Matriz){
   Matriz -> ano = 0;
   Matriz -> HoradaUltimaAtualizacao = 0;
   Matriz -> MinutosUltimaAtualizacao = 0;
-  Matriz -> IdentificadorDeMatriz = (rand()%1000);
+  Matriz -> IdentificadorDeMatriz = 0;
 }
 //Atualiza o horário e data de atualização da matriz
 void AtualizaMatriz(TipoMatriz *Matriz){

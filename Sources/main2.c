@@ -9,6 +9,7 @@
 #include "../Libs/voo.h"
 #include "../Libs/menu.h"
 #include "../Libs/VetorMatriz.h"
+#include "../Libs/Ordena.h"
 
 int main(){
   srand(time(NULL)); //Utilizamos esse comando para podermos usar numeros aleatorios para o vid
@@ -41,8 +42,14 @@ int main(){
 //>>>>> CENARIO 01 <<<<<<<<
   int tamanho = 365;
 
-  for(i = 0; i < 10; i++)
-    {
+  AlocaVetor(&Vetor, tamanho);
+  //PreencheVetor(&Vetor, 1);
+  PreencheVetor(&Vetor, 1);
+  for(i = 0; i < 365; i++){
+    printf("%d ", Vetor.Matriz[i].IdentificadorDeMatriz);
+  }
+  Bolha(&Vetor, tamanho, 0, 0);
+    /*{
       //Criando voos aleatoriamente
       IniciaMatriz(&Principal);
       IniciaVoo(&vooReserva);

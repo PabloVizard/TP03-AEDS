@@ -64,7 +64,7 @@ void vooAleatorio(TipoMatriz *itemMatriz){
       vooReserva.identificadorPista = (rand()%100);
 
       InserirMVoo(itemMatriz, &vooReserva);
-      //ImprimirMatriz(Principal);
+
 }}
 
 void PreencheVetor(TipoVetor *Vetor, int cenario){
@@ -95,6 +95,7 @@ void PreencheVetor(TipoVetor *Vetor, int cenario){
     for(a=0; a < i; a++){
       for(b=0; b < j; b++){
         vooAleatorio(&Vetor->Matriz[a]);
+
       }
     }
 

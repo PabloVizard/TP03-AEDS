@@ -2,15 +2,16 @@
 #include "../Libs/ListadeVoos.h"
 #include "../Libs/ItemMatriz.h"
 #include "../Libs/MatrizVoos.h"
+#include "../Libs/VetorMatriz.h"
 
-void Bolha (TipoVetor* v, int Tamanho, long int comparacao, long int movimentacao){
+void Bolha (TipoVetor *v, int Tamanho, long int comparacao, long int movimentacao){
   int i, j;
-  Item aux;
+  TipoVetor aux;
   comparacao = 0;
   movimentacao = 0;
   for(i = 0 ; i < Tamanho-1 ; i++ ){
     for (j = 1 ; j < Tamanho-i ; j++ ){
-      if (v[j]->Matriz.IdentificadorDeMatriz < v[j-1]->Matriz.IdentificadorDeMatriz)
+      if (v[j].Matriz->IdentificadorDeMatriz < v[j-1].Matriz->IdentificadorDeMatriz)
       comparacao++;
       {
         aux = v[j];
@@ -28,12 +29,12 @@ void selection(TipoVetor* v, int Tamanho, long int comparacao, long int moviment
     min =i;
     for(j=(i+1);j<Tamanho;j++){
       comparacao++;
-      if(v[j]->Matriz.IdentificadorDeMatriz<v[min]->Matriz.IdentificadorDeMatriz){
+      if(v[j].Matriz->IdentificadorDeMatriz<v[min].Matriz->IdentificadorDeMatriz){
         min=j;
       }
-      aux=v[min]->Matriz.IdentificadorDeMatriz;
-      v[min]->Matriz.IdentificadorDeMatriz=v[i]->Matriz.IdentificadorDeMatriz;
-      v[i]->Matriz.IdentificadorDeMatriz=aux;
+      aux=v[min].Matriz->IdentificadorDeMatriz;
+      v[min].Matriz->IdentificadorDeMatriz=v[i].Matriz->IdentificadorDeMatriz;
+      v[i].Matriz->IdentificadorDeMatriz=aux;
       movimentacao++;
     }
   }
@@ -100,7 +101,7 @@ void quicksort(int *v, int n){
 }
 
 //Heap
-
+/*
 void Constroi(Item *A, int *n){
   int Esq;
   Esq = *n / 2 + 1;
@@ -127,12 +128,13 @@ void Heapsort(Item *A, Indice *n){
   Indice Esq, Dir;
   Item aux;
   Constroi(A, n);
-  /* constroi o heap */
+   constroi o heap
   Esq = 1; Dir = *n;
   while (Dir > 1){
-  /* ordena o vetor */
+   ordena o vetor 
   aux = A[1]; A[1] = A[Dir]; A[Dir] = aux;
   Dir--;
   Refaz(Esq, Dir, A);
   }
 }
+*/
