@@ -6,7 +6,11 @@
 #include <time.h>
 #include <malloc.h>
 #include <stdlib.h>
-
+#include <stdio.h>
+#include <ctype.h>
+#include <sys/time.h>
+#define GET_MS(ini, fim)  ((fim.tv_sec * 1000000 + fim.tv_usec) \
+      - (ini.tv_sec * 1000000 + ini.tv_usec))
 //void IniciaItemVetor(TipoItemVetor *ItemVetor){
   //IniciaMatriz(ItemVetor -> Matriz);
 //}
@@ -137,5 +141,88 @@ void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
 
       }
     }
+}
 
+void BubbleSort(TipoVetor *Vetor, int Tamanho){
+  int i, j;
+  struct timeval inicio, fim;
+  gettimeofday(&inicio, NULL);
+
+  long int Comparacao = 0, Movimentacao = 0;
+  TipoVetor VetorAUX;
+  for(i = 0 ; i < Tamanho-1 ; i++ ){
+    for (j = 1 ; j < Tamanho-i ; j++ ){
+      Comparacao ++;
+      if (Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[j-1].Matriz->IdentificadorDeMatriz)
+      {
+        VetorAUX = Vetor[j];
+        Vetor[j] = Vetor[j-1];
+        Vetor[j-1] = VetorAUX;
+        Movimentacao += 3;
+      } // if
+    }
+  }
+  gettimeofday(&fim, NULL);
+
+  printf("\n====================================================================\n");
+  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("\n====================================================================\n");
+}
+
+void SelectionSort(TipoVetor *Vetor, int Tamanho){
+  int i, j, min;
+  long int Comparacao = 0, Movimentacao = 0;
+  TipoVetor VetorAUX;
+
+  struct timeval inicio, fim;
+  gettimeofday(&inicio, NULL);
+
+  for(i = 0; i < (Tamanho - 1); i++){
+    min = i;
+    for(j = (i + 1); j < Tamanho; j++){
+      Comparacao ++;
+      if(Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[min].Matriz->IdentificadorDeMatriz){
+        min = j;
+      }
+      if (Vetor[i].Matriz->IdentificadorDeMatriz != Vetor[min].Matriz->IdentificadorDeMatriz){
+        VetorAUX = Vetor[min];
+        Vetor[min] = Vetor[i];
+        Vetor[i] = VetorAUX;
+        Movimentacao += 3;
+      }
+    }
+  }
+  gettimeofday(&fim, NULL);
+
+  printf("\n====================================================================\n");
+  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("\n====================================================================\n");
+}
+
+void InsertionSort(TipoVetor *Vetor, int Tamanho){
+  int i,j;
+  long int Comparacao = 0, Movimentacao = 0;
+  TipoVetor VetorAUX;
+
+  struct timeval inicio, fim;
+  gettimeofday(&inicio, NULL);
+
+  for(i = 1; i < Tamanho; i++){
+    VetorAUX = Vetor[i];
+    Movimentacao ++;
+    j = i - 1;
+    while((j >= 0) && (Vetor[j].Matriz->IdentificadorDeMatriz < VetorAUX.Matriz->IdentificadorDeMatriz)){
+      Vetor[j + 1] = Vetor[j];
+      Movimentacao ++;
+      j --;
+      Comparacao ++;
+    }
+    Vetor[j + 1] = VetorAUX;
+  }
+
+  gettimeofday(&fim, NULL);
+
+  printf("\n====================================================================\n");
+  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("\n====================================================================\n");
 }
