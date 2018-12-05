@@ -18,6 +18,54 @@ void AlocaVetor(TipoVetor *Vetor, int Tamanho){
   }
 }
 
+void vooAleatorio(){
+  TipoMatriz Principal;
+  TVoo vooReserva;
+
+  //Declaração das variáveis básicas.
+  int i;
+
+  int aux1, aux2, aux3;
+
+  for(i = 0; i < 10; i++)
+    {
+      //Criando voos aleatoriamente
+      IniciaMatriz(&Principal);
+      IniciaVoo(&vooReserva);
+      SetVid(&vooReserva);
+
+      vooReserva.horaDecolagem = (rand()%23);
+      vooReserva.minutosDecolagem = (rand()%59);
+
+      vooReserva.horaPouso = (rand()%23);
+      vooReserva.minutosPouso = (rand()%59);
+
+    //===========================================================================
+
+      aux1 = (rand()%25)+65;
+      aux2 = (rand()%25)+65;
+      aux3 = (rand()%25)+65;
+
+      vooReserva.aeroportoPouso[0] = aux1;
+      vooReserva.aeroportoPouso[1] = aux2;
+      vooReserva.aeroportoPouso[2] = aux3;
+    //===========================================================================
+
+      aux1 = (rand()%25)+65;
+      aux2 = (rand()%25)+65;
+      aux3 = (rand()%25)+65;
+
+      vooReserva.aeroportoDecolagem[0] = aux1;
+      vooReserva.aeroportoDecolagem[1] = aux2;
+      vooReserva.aeroportoDecolagem[2] = aux3;
+
+    //===========================================================================
+      vooReserva.identificadorPista = (rand()%100);
+
+      InserirMVoo(&Principal, &vooReserva);
+      //ImprimirMatriz(Principal);
+}}
+
 void PreencheVetor(TipoVetor *Vetor, int cenario){
   int i = 0, j = 0, a=0, b=0;
   if(cenario%2==1){                 // Se o cenário for ímpar, preencherá 20% das matrizes
@@ -45,7 +93,7 @@ void PreencheVetor(TipoVetor *Vetor, int cenario){
 
     for(a=0; a < i; a++){
       for(b=0; b < j; b++){
-
+        vooAleatorio();
       }
     }
 
