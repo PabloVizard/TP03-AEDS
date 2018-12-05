@@ -11,11 +11,48 @@
   //IniciaMatriz(ItemVetor -> Matriz);
 //}
 
+void VetorAleatorio(int *VetorIndex, int Tamanho, int Preenchido){
+  int aleatorio;
+  int confirma = 0, cont = 0, i, aux = 0;
+  while(confirma == 0){
+    aleatorio = (rand()%(Tamanho-1));
+    for (i = 0; i < aux; i++){
+      if(aleatorio != VetorIndex[i])
+        cont++;
+    }
+    if(cont == aux){
+      VetorIndex[aux] = aleatorio;
+      aux++;
+    }
+    cont = 0;
+    if(aux == Preenchido)
+      confirma = 1;
+  }
+}
+
+void SetIdentificador(TipoVetor *Vetor, int a){
+  int NovoValor;
+  int confirma = 0, cont = 0, i;
+  while (confirma == 0) {
+    NovoValor = (rand()%1000000);
+    for(i = 0; i < a; i++){
+      if(NovoValor != Vetor->Matriz[i].IdentificadorDeMatriz){
+        cont++;
+      }
+    }
+    if(cont == a){
+      Vetor->Matriz[a].IdentificadorDeMatriz = NovoValor;
+      confirma = 1;
+    }
+  }
+}
+
 void AlocaVetor(TipoVetor *Vetor, int Tamanho){
   int i;
   Vetor->Matriz = (TipoMatriz *)malloc(Tamanho*sizeof(TipoMatriz));
   for(i=0; i<Tamanho; i++){
     IniciaMatriz(&(Vetor->Matriz[i]));
+    SetIdentificador(Vetor, i);
   }
 }
 
@@ -67,34 +104,36 @@ void vooAleatorio(TipoMatriz *itemMatriz){
 
 }}
 
-void PreencheVetor(TipoVetor *Vetor, int cenario){
+void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
   int i = 0, j = 0, a=0, b=0;
   if(cenario%2==1){                 // Se o cenário for ímpar, preencherá 20% das matrizes
     if(cenario==1 || cenario==3){
-      i=73;
+      a=73;
     }else if(cenario==5 || cenario==7){
-      i=730;
+      a=730;
     }else{
-      i=7300;
+      a=7300;
     }
   }else{                            // Se o cenário for par, preencherá 100% das matrizes
     if(cenario==2 || cenario==4){
-      i=365;
+      a=365;
     }else if(cenario==6 || cenario==8){
-      i=3650;
+      a=3650;
     }else{
-      i=36500;
+      a=36500;
     }
   }
   if((cenario%4)==1 || (cenario%4)==2){   // se o resto da divisão do cenário por 4 for igual a 1 ou 2, cada matriz terá 10 voos
-    j=10;
+    b=10;
   }else{                                  // se o resto da divisão do cenário por 4 for igual a 3 ou 0, cada matriz terá 100 voos
-    j=100;
+    b=100;
   }
+  int VetorIndex[Tamanho];
 
-    for(a=0; a < i; a++){
-      for(b=0; b < j; b++){
-        vooAleatorio(&Vetor->Matriz[a]);
+  VetorAleatorio(VetorIndex, Tamanho, a);
+    for(i=0; i < a; i++){
+      for(j=0; j < b; j++){
+        vooAleatorio(&Vetor->Matriz[VetorIndex[i]]);
 
       }
     }

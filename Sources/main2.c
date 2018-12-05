@@ -43,13 +43,13 @@ int main(){
   int tamanho = 365;
 
   AlocaVetor(&Vetor, tamanho);
-  //PreencheVetor(&Vetor, 1);
-  PreencheVetor(&Vetor, 1);
-  for(i = 0; i < 365; i++){
+  PreencheVetor(&Vetor, 1, tamanho);
+  for(i = 0; i < 15; i++){
     printf("%d ", Vetor.Matriz[i].IdentificadorDeMatriz);
   }
-  Bolha(&Vetor, tamanho, 0, 0);
-    /*{
+
+
+  /*{
       //Criando voos aleatoriamente
       IniciaMatriz(&Principal);
       IniciaVoo(&vooReserva);
@@ -92,7 +92,7 @@ int main(){
   //VetorMatriz.Tamanho = 73;
   //IniciaItemVetor(&Item);
   AlocaVetor(&Vetor, tamanho);
-    /*else if(modo == 2){
+    //else if(modo == 2){
       FILE *arq;
       menu_arquivo();
       scanf("%s", nomeArquivo);

@@ -10,11 +10,13 @@ typedef struct{
   TipoMatriz *Matriz;
 }TipoVetor;
 
-//void IniciaItemVetor(TipoItemVetor *ItemVetor);
+void VetorAleatorio(int *VetorIndex, int Tamanho, int Preenchido);
+
+void SetIdentificador(TipoVetor *Vetor, int a);
 
 void AlocaVetor(TipoVetor *Vetor, int Tamanho);
 
-void PreencheVetor(TipoVetor *Vetor, int cenario);
+void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho);
 
 void vooAleatorio(TipoMatriz *itemMatriz);
 
