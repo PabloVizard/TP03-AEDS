@@ -143,6 +143,8 @@ void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
     }
 }
 
+//========== BUBBLE SORT ==================//
+
 void BubbleSort(TipoVetor *Vetor, int Tamanho){
   int i, j;
   struct timeval inicio, fim;
@@ -168,6 +170,8 @@ void BubbleSort(TipoVetor *Vetor, int Tamanho){
   printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
+
+//========== SELECTION SORT ==================//
 
 void SelectionSort(TipoVetor *Vetor, int Tamanho){
   int i, j, min;
@@ -199,6 +203,8 @@ void SelectionSort(TipoVetor *Vetor, int Tamanho){
   printf("\n====================================================================\n");
 }
 
+//========== INSERTION SORT ==================//
+
 void InsertionSort(TipoVetor *Vetor, int Tamanho){
   int i,j;
   long int Comparacao = 0, Movimentacao = 0;
@@ -226,3 +232,131 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
   printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
+
+//========== SHELL SORT ==================//
+
+void ShellSort(TipoVetor *Vetor, int Tamanho){
+    int i, j;
+    long int Comparacao = 0, Movimentacao = 0;
+
+    TipoVetor VetorAUX;
+
+    int h = 1;
+    while(h < Tamanho) {
+        h = 3 * h + 1;
+    }
+    while (h > 1) {
+        h /= 3;
+        for(i = h; i < Tamanho; i++) {
+            VetorAUX = Vetor[i];
+            Movimentacao ++;
+            j = i;
+            Comparacao ++;
+            while (j >= h && Vetor[j - h].Matriz->IdentificadorDeMatriz > VetorAUX.Matriz->IdentificadorDeMatriz) {
+                Vetor[j] = Vetor[j - h];
+                Movimentacao ++;
+                j = j - h;
+            }
+            Vetor[j] = VetorAUX;
+            Movimentacao ++;
+        }
+    }
+}
+
+//========== QUICK SORT ==================//
+
+void Particao(int Esq, int Dir, int *i, int *j, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
+  int pivo;
+  TipoVetor aux;
+  *i = Esq;
+  *j = Dir;
+  pivo = Vetor[(*i + *j)/2].Matriz->IdentificadorDeMatriz;
+  do{
+    (*Comparacao) ++;
+    while(pivo > Vetor[*i].Matriz->IdentificadorDeMatriz){
+      (*i)++;
+      (*Comparacao) ++;
+    }
+    (*Comparacao) ++;
+    while(pivo < Vetor[*j].Matriz->IdentificadorDeMatriz){
+      (*j)--;
+      (*Comparacao) ++;
+    }
+    if(*i <= *j){
+      aux = Vetor[*i];
+      Vetor[*i] = Vetor[*j];
+      Vetor[*j] = aux;
+      (*Movimentacao) += 3;
+      (*i)++;
+      (*j)--;
+    }
+  }while(*i <= *j);
+}
+
+void Ordena(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
+  int i, j;
+  Particao(Esq, Dir, &i, &j, Vetor, Comparacao, Movimentacao);
+  if(Esq < j){
+    Ordena(Esq, j, Vetor, Comparacao, Movimentacao);
+  }
+  if(i < Dir){
+    Ordena(i, Dir, Vetor, Comparacao, Movimentacao);
+  }
+}
+
+void QuickSort(TipoVetor *Vetor, int n){
+  long int Comparacao = 0, Movimentacao = 0;
+  Ordena(0, n-1, Vetor, &Comparacao, &Movimentacao);
+}
+
+//========== HEAP SORT ==================//
+
+void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
+  int j = Esq * 2;
+  TipoVetor VetorAUX;
+  VetorAUX = Vetor[Esq];
+  (*Movimentacao) ++;
+  (*Comparacao) ++;
+  while (j <= Dir){
+    (*Comparacao) ++;
+    if ((j < Dir) && (Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[j+1].Matriz->IdentificadorDeMatriz))
+      j++;
+    (*Comparacao) ++;
+    if (VetorAUX.Matriz->IdentificadorDeMatriz >= Vetor[j].Matriz->IdentificadorDeMatriz)
+      break;
+    Vetor[Esq] = Vetor[j];
+    Esq = j;
+    j = Esq * 2 ;
+    (*Movimentacao) += 3;
+    }
+  Vetor[Esq] = VetorAUX;
+  (*Movimentacao) ++;
+}
+
+void Constroi(TipoVetor *Vetor, int *Tamanho, long int *Comparacao, long int *Movimentacao){
+  int Esq;
+  Esq = *Tamanho / 2 + 1;
+  (*Comparacao) ++;
+  while (Esq > 1)
+  {
+    Esq--;
+    Refaz(Esq, *Tamanho, Vetor, Comparacao, Movimentacao);
+  }
+}
+
+void Heapsort(TipoVetor *Vetor, int *Tamanho){
+  int Esq, Dir;
+  long int Comparacao = 0, Movimentacao = 0;
+  TipoVetor VetorAUX;
+  Constroi(Vetor, Tamanho, &Comparacao, &Movimentacao);  /* constroi o heap */
+  Esq = 1; Dir = *Tamanho;
+  Comparacao ++;
+  while (Dir > 1) {  /* ordena o vetor */
+    VetorAUX = Vetor[1];
+    Vetor[1] = Vetor[Dir];
+    Vetor[Dir] = VetorAUX;
+    Movimentacao += 3;
+    Dir--;
+    Refaz(Esq, Dir, Vetor, &Comparacao, &Movimentacao);
+    }
+  }
