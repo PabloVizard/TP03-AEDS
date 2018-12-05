@@ -5,6 +5,7 @@
 #include "../Libs/VetorMatriz.h"
 #include <time.h>
 #include <malloc.h>
+#include <stdlib.h>
 
 //void IniciaItemVetor(TipoItemVetor *ItemVetor){
   //IniciaMatriz(ItemVetor -> Matriz);
