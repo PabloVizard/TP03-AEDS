@@ -314,13 +314,13 @@ void Ordena(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *
   }
 }
 
-void QuickSort(TipoVetor *Vetor, int n){
+void QuickSort(TipoVetor *Vetor, int Tamanho){
   long int Comparacao = 0, Movimentacao = 0;
 
   struct timeval inicio, fim;
   gettimeofday(&inicio, NULL);
 
-  Ordena(0, n-1, Vetor, &Comparacao, &Movimentacao);
+  Ordena(0, Tamanho-1, Vetor, &Comparacao, &Movimentacao);
 
   gettimeofday(&fim, NULL);
 
