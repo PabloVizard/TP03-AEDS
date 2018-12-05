@@ -3,35 +3,43 @@
 #include "../Libs/ItemMatriz.h"
 #include "../Libs/MatrizVoos.h"
 
-void Bolha (Item * v, int n ){
+void Bolha (TipoVetor* v, int Tamanho, long int comparacao, long int movimentacao){
   int i, j;
   Item aux;
-  for(i = 0 ; i < n-1 ; i++ ){
-    for (j = 1 ; j < n-i ; j++ )
-      if (v[j].Chave < v[j-1].Chave )
+  comparacao = 0;
+  movimentacao = 0;
+  for(i = 0 ; i < Tamanho-1 ; i++ ){
+    for (j = 1 ; j < Tamanho-i ; j++ ){
+      if (v[j]->Matriz.IdentificadorDeMatriz < v[j-1]->Matriz.IdentificadorDeMatriz)
+      comparacao++;
       {
         aux = v[j];
         v[j] = v[j-1];
         v[j-1] = aux;
+        movimentacao++;
       } // if
-  }
-}
-
-void selection(int *v,int n){
-  int i,j,min,aux;
-  for(i=0;i<(n-1);i++){
-    min =i;
-    for(j=(i+1);j<n;j++){
-      if(v[j]<v[min]){
-        min=j;}
-      aux=v[min];
-      v[min]=v[i];
-      v[i]=aux;
     }
   }
 }
 
-void insertion(int *v,int n){
+void selection(TipoVetor* v, int Tamanho, long int comparacao, long int movimentacao){
+  int i,j,min,aux;
+  for(i=0;i<(Tamanho-1);i++){
+    min =i;
+    for(j=(i+1);j<Tamanho;j++){
+      comparacao++;
+      if(v[j]->Matriz.IdentificadorDeMatriz<v[min]->Matriz.IdentificadorDeMatriz){
+        min=j;
+      }
+      aux=v[min]->Matriz.IdentificadorDeMatriz;
+      v[min]->Matriz.IdentificadorDeMatriz=v[i]->Matriz.IdentificadorDeMatriz;
+      v[i]->Matriz.IdentificadorDeMatriz=aux;
+      movimentacao++;
+    }
+  }
+}
+
+void insertion(int *v,int n, long int comparacao, long int movimentacao){
   int i,j,aux;
   for(i=1;i<n;i++){
     aux=v[i];
@@ -92,3 +100,39 @@ void quicksort(int *v, int n){
 }
 
 //Heap
+
+void Constroi(Item *A, int *n){
+  int Esq;
+  Esq = *n / 2 + 1;
+  while (Esq > 1){
+    Esq--;
+    Refaz(Esq, *n, A);
+  }
+}
+
+void Refaz(int Esq, int Dir, Item *A){
+  int j = Esq * 2;
+  Item aux = A[Esq];
+  while (j <= Dir){
+    if ((j < Dir)&&(A[j].Chave < A[j+1].Chave)) j++;
+    if (aux.Chave >= A[j].Chave) break;
+    A[Esq] = A[j];
+    Esq = j;
+    j = Esq * 2;
+  }
+  A[Esq] = aux;
+}
+
+void Heapsort(Item *A, Indice *n){
+  Indice Esq, Dir;
+  Item aux;
+  Constroi(A, n);
+  /* constroi o heap */
+  Esq = 1; Dir = *n;
+  while (Dir > 1){
+  /* ordena o vetor */
+  aux = A[1]; A[1] = A[Dir]; A[Dir] = aux;
+  Dir--;
+  Refaz(Esq, Dir, A);
+  }
+}
