@@ -8,6 +8,7 @@
 #include "../Libs/MatrizVoos.h"
 #include "../Libs/voo.h"
 #include "../Libs/menu.h"
+#include "../Libs/VetorMatriz.h"
 
 int main(){
   srand(time(NULL)); //Utilizamos esse comando para podermos usar numeros aleatorios para o vid
