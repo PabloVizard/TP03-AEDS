@@ -165,15 +165,15 @@ void BubbleSort(TipoVetor *Vetor, int Tamanho){
   gettimeofday(&inicio, NULL);
 
   long int Comparacao = 0, Movimentacao = 0;
-  TipoVetor VetorAUX;
+  TipoMatriz MatrizAUX;
   for(i = 0 ; i < Tamanho-1 ; i++ ){
     for (j = 1 ; j < Tamanho-i ; j++ ){
       Comparacao ++;
-      if (Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[j-1].Matriz->IdentificadorDeMatriz)
+      if (Vetor->Matriz[j].IdentificadorDeMatriz < Vetor->Matriz[j-1].IdentificadorDeMatriz)
       {
-        VetorAUX = Vetor[j];
-        Vetor[j] = Vetor[j-1];
-        Vetor[j-1] = VetorAUX;
+        MatrizAUX = Vetor->Matriz[j];
+        Vetor->Matriz[j] = Vetor->Matriz[j-1];
+        Vetor->Matriz[j-1] = MatrizAUX;
         Movimentacao += 3;
       } // if
     }
@@ -190,7 +190,7 @@ void BubbleSort(TipoVetor *Vetor, int Tamanho){
 void SelectionSort(TipoVetor *Vetor, int Tamanho){
   int i, j, min;
   long int Comparacao = 0, Movimentacao = 0;
-  TipoVetor VetorAUX;
+  TipoMatriz MatrizAUX;
 
   struct timeval inicio, fim;
   gettimeofday(&inicio, NULL);
@@ -199,13 +199,13 @@ void SelectionSort(TipoVetor *Vetor, int Tamanho){
     min = i;
     for(j = (i + 1); j < Tamanho; j++){
       Comparacao ++;
-      if(Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[min].Matriz->IdentificadorDeMatriz){
+      if(Vetor->Matriz[j].IdentificadorDeMatriz < Vetor->Matriz[min].IdentificadorDeMatriz){
         min = j;
       }
-      if (Vetor[i].Matriz->IdentificadorDeMatriz != Vetor[min].Matriz->IdentificadorDeMatriz){
-        VetorAUX = Vetor[min];
-        Vetor[min] = Vetor[i];
-        Vetor[i] = VetorAUX;
+      if (Vetor->Matriz[i].IdentificadorDeMatriz != Vetor->Matriz[min].IdentificadorDeMatriz){
+        MatrizAUX = Vetor->Matriz[min];
+        Vetor->Matriz[min] = Vetor->Matriz[i];
+        Vetor->Matriz[i] = MatrizAUX;
         Movimentacao += 3;
       }
     }
@@ -222,22 +222,22 @@ void SelectionSort(TipoVetor *Vetor, int Tamanho){
 void InsertionSort(TipoVetor *Vetor, int Tamanho){
   int i,j;
   long int Comparacao = 0, Movimentacao = 0;
-  TipoVetor VetorAUX;
+  TipoMatriz MatrizAUX;
 
   struct timeval inicio, fim;
   gettimeofday(&inicio, NULL);
 
   for(i = 1; i < Tamanho; i++){
-    VetorAUX = Vetor[i];
+    MatrizAUX = Vetor->Matriz[i];
     Movimentacao ++;
     j = i - 1;
-    while((j >= 0) && (Vetor[j].Matriz->IdentificadorDeMatriz < VetorAUX.Matriz->IdentificadorDeMatriz)){
+    while((j >= 0) && (Vetor->Matriz[j].IdentificadorDeMatriz < MatrizAUX.IdentificadorDeMatriz)){
       Vetor[j + 1] = Vetor[j];
       Movimentacao ++;
       j --;
       Comparacao ++;
     }
-    Vetor[j + 1] = VetorAUX;
+    Vetor->Matriz[j + 1] = MatrizAUX;
   }
 
   gettimeofday(&fim, NULL);
@@ -253,7 +253,7 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
     int i, j;
     long int Comparacao = 0, Movimentacao = 0;
 
-    TipoVetor VetorAUX;
+    TipoMatriz MatrizAUX;
 
     struct timeval inicio, fim;
     gettimeofday(&inicio, NULL);
@@ -265,16 +265,16 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
     while (h > 1) {
         h /= 3;
         for(i = h; i < Tamanho; i++) {
-            VetorAUX = Vetor[i];
+            MatrizAUX = Vetor->Matriz[i];
             Movimentacao ++;
             j = i;
             Comparacao ++;
-            while (j >= h && Vetor[j - h].Matriz->IdentificadorDeMatriz > VetorAUX.Matriz->IdentificadorDeMatriz) {
+            while (j >= h && Vetor->Matriz[j - h].IdentificadorDeMatriz > MatrizAUX.IdentificadorDeMatriz) {
                 Vetor[j] = Vetor[j - h];
                 Movimentacao ++;
                 j = j - h;
             }
-            Vetor[j] = VetorAUX;
+            Vetor->Matriz[j] = MatrizAUX;
             Movimentacao ++;
         }
     }
@@ -291,25 +291,25 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
 
 void Particao(int Esq, int Dir, int *i, int *j, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
   int pivo;
-  TipoVetor aux;
+  TipoMatriz aux;
   *i = Esq;
   *j = Dir;
-  pivo = Vetor[(*i + *j)/2].Matriz->IdentificadorDeMatriz;
+  pivo = Vetor->Matriz[(*i + *j)/2].IdentificadorDeMatriz;
   do{
     (*Comparacao) ++;
-    while(pivo > Vetor[*i].Matriz->IdentificadorDeMatriz){
+    while(pivo > Vetor->Matriz[*i].IdentificadorDeMatriz){
       (*i)++;
       (*Comparacao) ++;
     }
     (*Comparacao) ++;
-    while(pivo < Vetor[*j].Matriz->IdentificadorDeMatriz){
+    while(pivo < Vetor->Matriz[*j].IdentificadorDeMatriz){
       (*j)--;
       (*Comparacao) ++;
     }
     if(*i <= *j){
-      aux = Vetor[*i];
-      Vetor[*i] = Vetor[*j];
-      Vetor[*j] = aux;
+      aux = Vetor->Matriz[*i];
+      Vetor->Matriz[*i] = Vetor->Matriz[*j];
+      Vetor->Matriz[*j] = aux;
       (*Movimentacao) += 3;
       (*i)++;
       (*j)--;
@@ -347,8 +347,8 @@ void QuickSort(TipoVetor *Vetor, int Tamanho){
 
 void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
   int j = Esq * 2;
-  TipoVetor VetorAUX;
-  VetorAUX = Vetor[Esq];
+  TipoMatriz MatrizAUX;
+  MatrizAUX = Vetor->Matriz[Esq];
   (*Movimentacao) ++;
   (*Comparacao) ++;
   while (j <= Dir){
@@ -356,14 +356,14 @@ void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *M
     if ((j < Dir) && (Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[j+1].Matriz->IdentificadorDeMatriz))
       j++;
     (*Comparacao) ++;
-    if (VetorAUX.Matriz->IdentificadorDeMatriz >= Vetor[j].Matriz->IdentificadorDeMatriz)
+    if (MatrizAUX.IdentificadorDeMatriz >= Vetor->Matriz[j].IdentificadorDeMatriz)
       break;
-    Vetor[Esq] = Vetor[j];
+    Vetor->Matriz[Esq] = Vetor->Matriz[j];
     Esq = j;
     j = Esq * 2 ;
     (*Movimentacao) += 3;
     }
-  Vetor[Esq] = VetorAUX;
+  Vetor->Matriz[Esq] = MatrizAUX;
   (*Movimentacao) ++;
 }
 
@@ -381,7 +381,7 @@ void Constroi(TipoVetor *Vetor, int *Tamanho, long int *Comparacao, long int *Mo
 void Heapsort(TipoVetor *Vetor, int *Tamanho){
   int Esq, Dir;
   long int Comparacao = 0, Movimentacao = 0;
-  TipoVetor VetorAUX;
+  TipoMatriz MatrizAUX;
 
   struct timeval inicio, fim;
   gettimeofday(&inicio, NULL);
@@ -390,9 +390,9 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
   Esq = 1; Dir = *Tamanho;
   Comparacao ++;
   while (Dir > 1) {  /* ordena o vetor */
-    VetorAUX = Vetor[1];
-    Vetor[1] = Vetor[Dir];
-    Vetor[Dir] = VetorAUX;
+    MatrizAUX = Vetor->Matriz[1];
+    Vetor->Matriz[1] = Vetor->Matriz[Dir];
+    Vetor->Matriz[Dir] = MatrizAUX;
     Movimentacao += 3;
     Dir--;
     Refaz(Esq, Dir, Vetor, &Comparacao, &Movimentacao);

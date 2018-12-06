@@ -44,10 +44,13 @@ int main(){
 
   AlocaVetor(&Vetor, tamanho);
   PreencheVetor(&Vetor, 1, tamanho);
-  for(i = 0; i < 15; i++){
+  for(i=0; i<10; i++)
     printf("%d ", Vetor.Matriz[i].IdentificadorDeMatriz);
-  }
-
+  printf("\nORDENA:\n");
+  SelectionSort(&Vetor, tamanho);
+  for(i=0; i<10; i++)
+    printf("%d ", Vetor.Matriz[i].IdentificadorDeMatriz);
+  printf("\n");
 
   /*{
       //Criando voos aleatoriamente
