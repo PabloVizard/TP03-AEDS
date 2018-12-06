@@ -11,17 +11,17 @@ void Bolha (TipoVetor* v, int Tamanho, long int comparacao, long int movimentaca
 
 void selection(TipoVetor* v, int Tamanho, long int comparacao, long int movimentacao);
 
-void insertion(int *v,int n, long int comparacao, long int movimentacao);
+void insertion(TipoVetor *v,int n, long int comparacao, long int movimentacao);
 
-void shellsort(int v[], int n, long int comparacao, long int movimentacao);
+void shellsort(TipoVetor *v,int tamanho, long int comparacao, long int movimentacao);
 
 void particao(int esq,int dir,int* i, int* j, int * a);
 void ordena(int e, int d,int *A);
-void quicksort(int *v, int n);
+void quicksort(TipoVetor *v,int tamanho, long int *comparacao, long int *movimentacao);
 
-/*
-void Constroi(Item *A, int *n);
-void Refaz(int Esq, int Dir, Item *A);
-void Heapsort(Item *A, Indice *n);
-*/
+
+void Constroi(TipoMatriz *A, int *tamanho);
+void Refaz(int Esq, int Dir, TipoMatriz *A);
+void Heapsort(TipoVetor *v,int *tamanho);
+
 #endif

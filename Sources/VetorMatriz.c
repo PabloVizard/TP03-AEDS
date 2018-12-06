@@ -344,7 +344,7 @@ void QuickSort(TipoVetor *Vetor, int Tamanho){
 }
 
 //========== HEAP SORT ==================//
-
+/*
 void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
   int j = Esq * 2;
   TipoMatriz MatrizAUX;
@@ -386,10 +386,10 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
   struct timeval inicio, fim;
   gettimeofday(&inicio, NULL);
 
-  Constroi(Vetor, Tamanho, &Comparacao, &Movimentacao);  /* constroi o heap */
+  Constroi(Vetor, Tamanho, &Comparacao, &Movimentacao);  // constroi o heap
   Esq = 1; Dir = *Tamanho;
   Comparacao ++;
-  while (Dir > 1) {  /* ordena o vetor */
+  while (Dir > 1) {   //ordena o vetor
     MatrizAUX = Vetor->Matriz[1];
     Vetor->Matriz[1] = Vetor->Matriz[Dir];
     Vetor->Matriz[Dir] = MatrizAUX;
@@ -404,4 +404,4 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
   printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 
-}
+}*/
