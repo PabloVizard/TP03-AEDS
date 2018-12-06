@@ -369,63 +369,32 @@ void QuickSort(TipoVetor *Vetor, int Tamanho){
 
 //========== HEAP SORT ==================//
 
-void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
-  int j = Esq * 2;
-  TipoMatriz MatrizAUX;
-  MatrizAUX = Vetor->Matriz[Esq];
-  (*Movimentacao) ++;
-  (*Comparacao) ++;
-  while (j <= Dir){
-    (*Comparacao) ++;
-    if ((j < Dir) && (Vetor[j].Matriz->IdentificadorDeMatriz < Vetor[j+1].Matriz->IdentificadorDeMatriz))
-      j++;
-    (*Comparacao) ++;
-    if (MatrizAUX.IdentificadorDeMatriz >= Vetor->Matriz[j].IdentificadorDeMatriz)
-      break;
-    Vetor->Matriz[Esq] = Vetor->Matriz[j];
-    Esq = j;
-    j = Esq * 2 ;
-    (*Movimentacao) += 3;
-    }
-  Vetor->Matriz[Esq] = MatrizAUX;
-  (*Movimentacao) ++;
-}
-
-void Constroi(TipoVetor *Vetor, int *Tamanho, long int *Comparacao, long int *Movimentacao){
-  int Esq;
-  Esq = *Tamanho / 2 + 1;
-  (*Comparacao) ++;
-  while (Esq > 1)
-  {
-    Esq--;
-    Refaz(Esq, *Tamanho, Vetor, Comparacao, Movimentacao);
-  }
-}
-
-void Heapsort(TipoVetor *Vetor, int Tamanho){
-  int Esq, Dir;
-  long int Comparacao = 0, Movimentacao = 0;
-  TipoMatriz MatrizAUX;
-
-  struct timeval inicio, fim;
-  gettimeofday(&inicio, NULL);
-
-  Constroi(Vetor, &Tamanho, &Comparacao, &Movimentacao);  // constroi o heap
-  Esq = 1; Dir = Tamanho;
-  Comparacao ++;
-  while (Dir > 1) {   //ordena o vetor
-    MatrizAUX = Vetor->Matriz[1];
-    Vetor->Matriz[1] = Vetor->Matriz[Dir];
-    Vetor->Matriz[Dir] = MatrizAUX;
-    Movimentacao += 3;
-    Dir--;
-    Refaz(Esq, Dir, Vetor, &Comparacao, &Movimentacao);
-    }
-
-  gettimeofday(&fim, NULL);
-
-  printf("\n====================================================================\n");
-  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
-  printf("\n====================================================================\n");
-
+void heapsort(TipoVetor a[], int n) {
+   int i = n / 2, pai, filho;
+   TipoMatriz t;
+   while(1) {
+      if (i > 0) {
+          i--;
+          t = a->Matriz[i];
+      } else {
+          n--;
+          if (n == 0) return;
+          t = a->Matriz[n];
+          a->Matriz[n] = a->Matriz[0];
+      }
+      pai = i;
+      filho = i * 2 + 1;
+      while (filho < n) {
+          if ((filho + 1 < n)  &&  (a->Matriz[filho + 1].IdentificadorDeMatriz > a->Matriz[filho].IdentificadorDeMatriz))
+              filho++;
+          if (a->Matriz[filho].IdentificadorDeMatriz > t.IdentificadorDeMatriz) {
+             a->Matriz[pai] = a->Matriz[filho];
+             pai = filho;
+             filho = pai * 2 + 1;
+          } else {
+             break;
+          }
+      }
+      a->Matriz[pai] = t;
+   }
 }
