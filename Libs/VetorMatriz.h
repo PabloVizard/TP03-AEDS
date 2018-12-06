@@ -41,10 +41,10 @@ void Ordena(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *
 
 void QuickSort(TipoVetor *Vetor, int Tamanho);
 
-//void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao);
+void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao);
 
-//void Constroi(TipoVetor *Vetor, int *Tamanho, long int *Comparacao, long int *Movimentacao);
+void Constroi(TipoVetor *Vetor, int *Tamanho, long int *Comparacao, long int *Movimentacao);
 
-//void Heapsort(TipoVetor *Vetor, int *Tamanho);
+void Heapsort(TipoVetor *Vetor, int Tamanho);
 
 #endif

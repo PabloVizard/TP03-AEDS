@@ -69,49 +69,42 @@ void vooAleatorio(TipoMatriz *itemMatriz){
 
   TVoo vooReserva;
 
-  //Declaração das variáveis básicas.
-  int i;
-
   int aux1, aux2, aux3;
 
-  for(i = 0; i < 10; i++)
-    {
-      //Criando voos aleatoriamente
+    //Criando voos aleatoriamente
+    IniciaVoo(&vooReserva);
+    SetVid(&vooReserva);
 
-      IniciaVoo(&vooReserva);
-      SetVid(&vooReserva);
+    vooReserva.horaDecolagem = (rand()%23);
+    vooReserva.minutosDecolagem = (rand()%59);
 
-      vooReserva.horaDecolagem = (rand()%23);
-      vooReserva.minutosDecolagem = (rand()%59);
+    vooReserva.horaPouso = (rand()%23);
+    vooReserva.minutosPouso = (rand()%59);
 
-      vooReserva.horaPouso = (rand()%23);
-      vooReserva.minutosPouso = (rand()%59);
+  //===========================================================================
 
-    //===========================================================================
+    aux1 = (rand()%25)+65;
+    aux2 = (rand()%25)+65;
+    aux3 = (rand()%25)+65;
 
-      aux1 = (rand()%25)+65;
-      aux2 = (rand()%25)+65;
-      aux3 = (rand()%25)+65;
+    vooReserva.aeroportoPouso[0] = aux1;
+    vooReserva.aeroportoPouso[1] = aux2;
+    vooReserva.aeroportoPouso[2] = aux3;
+  //===========================================================================
 
-      vooReserva.aeroportoPouso[0] = aux1;
-      vooReserva.aeroportoPouso[1] = aux2;
-      vooReserva.aeroportoPouso[2] = aux3;
-    //===========================================================================
+    aux1 = (rand()%25)+65;
+    aux2 = (rand()%25)+65;
+    aux3 = (rand()%25)+65;
 
-      aux1 = (rand()%25)+65;
-      aux2 = (rand()%25)+65;
-      aux3 = (rand()%25)+65;
+    vooReserva.aeroportoDecolagem[0] = aux1;
+    vooReserva.aeroportoDecolagem[1] = aux2;
+    vooReserva.aeroportoDecolagem[2] = aux3;
 
-      vooReserva.aeroportoDecolagem[0] = aux1;
-      vooReserva.aeroportoDecolagem[1] = aux2;
-      vooReserva.aeroportoDecolagem[2] = aux3;
+  //===========================================================================
+    vooReserva.identificadorPista = (rand()%100);
 
-    //===========================================================================
-      vooReserva.identificadorPista = (rand()%100);
-
-      InserirMVoo(itemMatriz, &vooReserva);
-
-}}
+    InserirMVoo(itemMatriz, &vooReserva);
+}
 
 void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
   int i = 0, j = 0, a=0, b=0;
@@ -181,7 +174,9 @@ void BubbleSort(TipoVetor *Vetor, int Tamanho){
   gettimeofday(&fim, NULL);
 
   printf("\n====================================================================\n");
-  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("Numero de Comparações: %ld\n", Comparacao);
+  printf("Numero de Movimentações: %ld\n", Movimentacao);
+  printf("Tempo de Execução: %.5f s", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
 
@@ -202,17 +197,19 @@ void SelectionSort(TipoVetor *Vetor, int Tamanho){
       if(Vetor->Matriz[j].IdentificadorDeMatriz < Vetor->Matriz[min].IdentificadorDeMatriz){
         min = j;
       }
+    }
       if (Vetor->Matriz[i].IdentificadorDeMatriz != Vetor->Matriz[min].IdentificadorDeMatriz){
         MatrizAUX = Vetor->Matriz[min];
         Vetor->Matriz[min] = Vetor->Matriz[i];
         Vetor->Matriz[i] = MatrizAUX;
         Movimentacao += 3;
-      }
     }
   }
   gettimeofday(&fim, NULL);
 
   printf("\n====================================================================\n");
+  printf("Numero de Comparações: %ld\n", Comparacao);
+  printf("Numero de Movimentações: %ld\n", Movimentacao);
   printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
@@ -243,6 +240,8 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
   gettimeofday(&fim, NULL);
 
   printf("\n====================================================================\n");
+  printf("Numero de Comparações: %ld\n", Comparacao);
+  printf("Numero de Movimentações: %ld\n", Movimentacao);
   printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
@@ -251,6 +250,7 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
 
 void ShellSort(TipoVetor *Vetor, int Tamanho){
     int i, j;
+    int h = 1;
     long int Comparacao = 0, Movimentacao = 0;
 
     TipoMatriz MatrizAUX;
@@ -258,8 +258,30 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
     struct timeval inicio, fim;
     gettimeofday(&inicio, NULL);
 
-    int h = 1;
-    while(h < Tamanho) {
+    do{
+      h = (h*3)+1;
+    }while (h < Tamanho);
+    do{
+      h = h/3;
+      for(i = h; i < Tamanho; i++){
+        MatrizAUX = Vetor->Matriz[i];
+        Movimentacao ++;
+        j = i;
+        Comparacao ++;
+        while(Vetor->Matriz[j - h].IdentificadorDeMatriz > MatrizAUX.IdentificadorDeMatriz){
+          Vetor->Matriz[j] = Vetor->Matriz[j-h];
+          Movimentacao ++;
+          j = j - h;
+          Comparacao ++;
+          if(j < h){
+            break;
+          }
+        }
+        Vetor->Matriz[j] = MatrizAUX;
+        Movimentacao ++;
+      }
+    }while(h != 1);
+  /*  while(h < Tamanho) {
         h = 3 * h + 1;
     }
     while (h > 1) {
@@ -278,10 +300,12 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
             Movimentacao ++;
         }
     }
-
+*/
     gettimeofday(&fim, NULL);
 
     printf("\n====================================================================\n");
+    printf("Numero de Comparações: %ld\n", Comparacao);
+    printf("Numero de Movimentações: %ld\n", Movimentacao);
     printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
     printf("\n====================================================================\n");
 
@@ -344,7 +368,7 @@ void QuickSort(TipoVetor *Vetor, int Tamanho){
 }
 
 //========== HEAP SORT ==================//
-/*
+
 void Refaz(int Esq, int Dir, TipoVetor *Vetor, long int *Comparacao, long int *Movimentacao){
   int j = Esq * 2;
   TipoMatriz MatrizAUX;
@@ -378,7 +402,7 @@ void Constroi(TipoVetor *Vetor, int *Tamanho, long int *Comparacao, long int *Mo
   }
 }
 
-void Heapsort(TipoVetor *Vetor, int *Tamanho){
+void Heapsort(TipoVetor *Vetor, int Tamanho){
   int Esq, Dir;
   long int Comparacao = 0, Movimentacao = 0;
   TipoMatriz MatrizAUX;
@@ -386,8 +410,8 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
   struct timeval inicio, fim;
   gettimeofday(&inicio, NULL);
 
-  Constroi(Vetor, Tamanho, &Comparacao, &Movimentacao);  // constroi o heap
-  Esq = 1; Dir = *Tamanho;
+  Constroi(Vetor, &Tamanho, &Comparacao, &Movimentacao);  // constroi o heap
+  Esq = 1; Dir = Tamanho;
   Comparacao ++;
   while (Dir > 1) {   //ordena o vetor
     MatrizAUX = Vetor->Matriz[1];
@@ -404,4 +428,4 @@ void Heapsort(TipoVetor *Vetor, int *Tamanho){
   printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 
-}*/
+}

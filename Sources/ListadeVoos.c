@@ -67,9 +67,9 @@ void InserirNovo(TLista *Lista, TVoo Voo){
     }
     novacelula -> pProximo = antecessor -> pProximo; // Pega o endereço da voo com horario de decolagem maior que o da nova celula
     antecessor -> pProximo = novacelula; // Célula com último voo menor aponta para nova celula
-    printf("====================================================================\n\n");
-    printf("              >>> Voo Cadastrado com o VID: %d <<<\n\n", novacelula->Voo.vid);
-    printf("====================================================================\n\n");
+    //printf("====================================================================\n\n");
+    //printf("              >>> Voo Cadastrado com o VID: %d <<<\n\n", novacelula->Voo.vid);
+    //printf("====================================================================\n\n");
     return; //Finaliza a função
   }
 }

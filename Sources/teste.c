@@ -9,11 +9,11 @@
 #include "../Libs/voo.h"
 #include "../Libs/menu.h"
 #include "../Libs/VetorMatriz.h"
-#include "../Libs/Ordena.h"
+//#include "../Libs/Ordena.h"
 
 int main(){
   srand(time(NULL));
-  int modo, cenario, tamanho, algoritmo;
+  int modo, cenario, tamanho = 0, algoritmo;
   TipoVetor Vetor;
 
   printf("====================================================================\n");
@@ -51,5 +51,14 @@ int main(){
     menu_de_odenacoes();
     scanf("%d", &algoritmo);
   }
+
+  //BubbleSort(&Vetor, tamanho);
+  for(int i=0; i<10; i++)
+    printf("%d ", Vetor.Matriz[i].IdentificadorDeMatriz);
+  printf("\nORDENA:\n");
+  Heapsort(&Vetor, tamanho);
+  for(int i=0; i<10; i++)
+    printf("%d ", Vetor.Matriz[i].IdentificadorDeMatriz);
+  printf("\n");
   return 0;
 }
