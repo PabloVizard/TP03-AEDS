@@ -231,8 +231,8 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
     MatrizAUX = Vetor->Matriz[i];
     Movimentacao ++;
     j = i - 1;
-    while((j >= 0) && (Vetor->Matriz[j].IdentificadorDeMatriz < MatrizAUX.IdentificadorDeMatriz)){
-      Vetor[j + 1] = Vetor[j];
+    while((j >= 0) && (Vetor->Matriz[j].IdentificadorDeMatriz > MatrizAUX.IdentificadorDeMatriz)){
+      Vetor->Matriz[j + 1] = Vetor->Matriz[j];
       Movimentacao ++;
       j --;
       Comparacao ++;
