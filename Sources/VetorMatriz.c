@@ -11,24 +11,26 @@
 #include <sys/time.h>
 #define GET_MS(ini, fim)  ((fim.tv_sec * 1000000 + fim.tv_usec) \
       - (ini.tv_sec * 1000000 + ini.tv_usec))
-//void IniciaItemVetor(TipoItemVetor *ItemVetor){
-  //IniciaMatriz(ItemVetor -> Matriz);
-//}
 
 void VetorAleatorio(int *VetorIndex, int Tamanho, int Preenchido){
   int aleatorio;
   int confirma = 0, cont = 0, i, aux = 0;
+  //Ciclo de repetição
   while(confirma == 0){
+    //Gerando número aleatório
     aleatorio = (rand()%(Tamanho-1));
     for (i = 0; i < aux; i++){
       if(aleatorio != VetorIndex[i])
         cont++;
+        //Se o valor criado for diferente dos já existentes, incrementa-se o contador
     }
+    //Se o contador for igual ao auxiliar, significa que o valor criado é diferente dos já existentes, ou seja, pode ser inserido
     if(cont == aux){
       VetorIndex[aux] = aleatorio;
       aux++;
     }
     cont = 0;
+    //Se o valor do auxiliar chegar no número de casas a serem preenchidas, a função é parada
     if(aux == Preenchido)
       confirma = 1;
   }
@@ -37,6 +39,7 @@ void VetorAleatorio(int *VetorIndex, int Tamanho, int Preenchido){
 void SetIdentificador(TipoVetor *Vetor, int a){
   int NovoValor;
   int confirma = 0, cont = 0, i;
+  //O processo para a criação de um valor aleatório para o ID assemelha-se muito ao da criação do vetor
   while (confirma == 0) {
     NovoValor = (rand()%1000000);
     for(i = 0; i < a; i++){
@@ -44,6 +47,7 @@ void SetIdentificador(TipoVetor *Vetor, int a){
         cont++;
       }
     }
+    //A execução é parada nessa parte porque a função é chamada uma vez por matriz.
     if(cont == a){
       Vetor->Matriz[a].IdentificadorDeMatriz = NovoValor;
       confirma = 1;
@@ -53,6 +57,7 @@ void SetIdentificador(TipoVetor *Vetor, int a){
 
 void AlocaVetor(TipoVetor *Vetor, int Tamanho){
   int i;
+  //Alocando as matrizes fazendo um vetor
   Vetor->Matriz = (TipoMatriz *)malloc(Tamanho*sizeof(TipoMatriz));
   for(i=0; i<Tamanho; i++){
     IniciaMatriz(&(Vetor->Matriz[i]));
@@ -132,15 +137,24 @@ void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
   }else{                                  // se o resto da divisão do cenário por 4 for igual a 3 ou 0, cada matriz terá 100 voos
     b=100;
   }
-  int VetorIndex[Tamanho];
 
-  VetorAleatorio(VetorIndex, Tamanho, a);
+  if (a == 365 || a == 3650 || a == 36500){
+    int VetorIndex[Tamanho];
+
+    VetorAleatorio(VetorIndex, Tamanho, a);
     for(i=0; i < a; i++){
       for(j=0; j < b; j++){
         vooAleatorio(&Vetor->Matriz[VetorIndex[i]]);
-
       }
     }
+  }
+  else{
+    for(i=0; i < a; i++){
+      for(j=0; j < b; j++){
+        vooAleatorio(&Vetor->Matriz[i]);
+      }
+    }
+  }
 }
 
 //========== BUBBLE SORT ==================//

@@ -10,15 +10,22 @@ typedef struct{
   TipoMatriz *Matriz;
 }TipoVetor;
 
+//Criando um vetor com valores aleatórios para preencher a matriz aleatoriamente
 void VetorAleatorio(int *VetorIndex, int Tamanho, int Preenchido);
 
+//Criando os Id aleatoriamente de forma que eles não se repitam
 void SetIdentificador(TipoVetor *Vetor, int a);
 
+//Iniciando o vetor de matrizes
 void AlocaVetor(TipoVetor *Vetor, int Tamanho);
 
+//Criando os voos aleatórios
+void vooAleatorio(TipoMatriz *itemMatriz);
+
+//preenchendo o vetor
 void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho);
 
-void vooAleatorio(TipoMatriz *itemMatriz);
+//Algoritmos de ordenação
 
 void BubbleSort(TipoVetor *Vetor, int Tamanho);
 
