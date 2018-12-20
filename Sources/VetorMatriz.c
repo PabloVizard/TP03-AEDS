@@ -37,11 +37,12 @@ void VetorAleatorio(int *VetorIndex, int Tamanho, int Preenchido){
 }
 
 void SetIdentificador(TipoVetor *Vetor, int a){
-  int NovoValor;
+  long int NovoValor;
   int confirma = 0, cont = 0, i;
+  //printf("mago implacavel 7 %d cenario\n", a);
   //O processo para a criação de um valor aleatório para o ID assemelha-se muito ao da criação do vetor
   while (confirma == 0) {
-    NovoValor = (rand()%1000000);
+    NovoValor = (rand()%100000000000000);
     for(i = 0; i < a; i++){
       if(NovoValor != Vetor->Matriz[i].IdentificadorDeMatriz){
         cont++;
@@ -60,8 +61,11 @@ void AlocaVetor(TipoVetor *Vetor, int Tamanho){
   //Alocando as matrizes fazendo um vetor
   Vetor->Matriz = (TipoMatriz *)malloc(Tamanho*sizeof(TipoMatriz));
   for(i=0; i<Tamanho; i++){
+    //printf("mago implacavel 4 %d cenario\n", Tamanho);
     IniciaMatriz(&(Vetor->Matriz[i]));
+    //printf("mago implacavel 5 %d cenario\n", Tamanho);
     SetIdentificador(Vetor, i);
+    //printf("mago implacavel 6 %d cenario\n", Tamanho);
   }
 }
 
@@ -108,36 +112,70 @@ void vooAleatorio(TipoMatriz *itemMatriz){
 
 void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
   int i = 0, j = 0, a=0, b=0;
-  if(cenario%2==1){                 // Se o cenário for ímpar, preencherá 20% das matrizes
-    if(cenario==1 || cenario==3){
-      a=73;
-    }else if(cenario==5 || cenario==7){
-      a=730;
-    }else{
-      a=7300;
-    }
-  }else{                            // Se o cenário for par, preencherá 100% das matrizes
-    if(cenario==2 || cenario==4){
-      a=365;
-    }else if(cenario==6 || cenario==8){
-      a=3650;
-    }else{
-      a=36500;
-    }
-  }
-  if((cenario%4)==1 || (cenario%4)==2){   // se o resto da divisão do cenário por 4 for igual a 1 ou 2, cada matriz terá 10 voos
-    b=10;
-  }else{                                  // se o resto da divisão do cenário por 4 for igual a 3 ou 0, cada matriz terá 100 voos
-    b=100;
+
+  switch (cenario) {
+    case 1:
+      a = 73;
+      b = 10;
+      break;
+    case 2:
+      a = 365;
+      b = 10;
+      //printf("certo %d\n", cenario);
+      break;
+    case 3:
+      a = 73;
+      b = 100;
+      break;
+    case 4:
+      a = 365;
+      b = 100;
+      break;
+    case 5:
+      a = 730;
+      b = 10;
+      break;
+    case 6:
+      a = 3650;
+      b = 10;
+      break;
+    case 7:
+      a = 730;
+      b = 100;
+      break;
+    case 8:
+      a = 3650;
+      b = 100;
+      break;
+    case 9:
+      a = 7300;
+      b = 10;
+      break;
+    case 10:
+      a = 36500;
+      b = 10;
+      break;
+    case 11:
+      a = 7300;
+      b = 100;
+      break;
+    case 12:
+      a = 36500;
+      b = 100;
+      break;
   }
 
-  if (a == 365 || a == 3650 || a == 36500){
+  if (a == 73 || a == 730 || a == 7300){
     int VetorIndex[Tamanho];
-
+    //printf("certo3 %d\n", cenario);
     VetorAleatorio(VetorIndex, Tamanho, a);
+    //printf("certo6 %d\n", cenario);
     for(i=0; i < a; i++){
+      //printf("certo4 %d\n", cenario);
       for(j=0; j < b; j++){
+        //printf("certo5 %d\n", cenario);
         vooAleatorio(&Vetor->Matriz[VetorIndex[i]]);
+        //printf("certo7 %d\n", cenario);
       }
     }
   }
@@ -145,6 +183,7 @@ void PreencheVetor(TipoVetor *Vetor, int cenario, int Tamanho){
     for(i=0; i < a; i++){
       for(j=0; j < b; j++){
         vooAleatorio(&Vetor->Matriz[i]);
+        //printf("arthur  %d\n", cenario);
       }
     }
   }
@@ -159,6 +198,7 @@ void BubbleSort(TipoVetor *Vetor, int Tamanho){
 
   long int Comparacao = 0, Movimentacao = 0;
   TipoMatriz MatrizAUX;
+
   for(i = 0 ; i < Tamanho-1 ; i++ ){
     for (j = 1 ; j < Tamanho-i ; j++ ){
       Comparacao ++;
@@ -199,9 +239,9 @@ void SelectionSort(TipoVetor *Vetor, int Tamanho){
       }
     }
       if (Vetor->Matriz[i].IdentificadorDeMatriz != Vetor->Matriz[min].IdentificadorDeMatriz){
-        MatrizAUX = Vetor->Matriz[min];
-        Vetor->Matriz[min] = Vetor->Matriz[i];
-        Vetor->Matriz[i] = MatrizAUX;
+        MatrizAUX = Vetor->Matriz[i];
+        Vetor->Matriz[i] = Vetor->Matriz[min];
+        Vetor->Matriz[min] = MatrizAUX;
         Movimentacao += 3;
     }
   }
@@ -210,7 +250,7 @@ void SelectionSort(TipoVetor *Vetor, int Tamanho){
   printf("\n====================================================================\n");
   printf("Numero de Comparações: %ld\n", Comparacao);
   printf("Numero de Movimentações: %ld\n", Movimentacao);
-  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("Tempo de Execução: %.5f s", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
 
@@ -228,6 +268,7 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
     MatrizAUX = Vetor->Matriz[i];
     Movimentacao ++;
     j = i - 1;
+    Comparacao ++;
     while((j >= 0) && (Vetor->Matriz[j].IdentificadorDeMatriz > MatrizAUX.IdentificadorDeMatriz)){
       Vetor->Matriz[j + 1] = Vetor->Matriz[j];
       Movimentacao ++;
@@ -235,6 +276,7 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
       Comparacao ++;
     }
     Vetor->Matriz[j + 1] = MatrizAUX;
+    Movimentacao ++;
   }
 
   gettimeofday(&fim, NULL);
@@ -242,7 +284,7 @@ void InsertionSort(TipoVetor *Vetor, int Tamanho){
   printf("\n====================================================================\n");
   printf("Numero de Comparações: %ld\n", Comparacao);
   printf("Numero de Movimentações: %ld\n", Movimentacao);
-  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("Tempo de Execução: %.5f s", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
 
@@ -257,10 +299,11 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
 
     struct timeval inicio, fim;
     gettimeofday(&inicio, NULL);
-
+    Comparacao ++;
     do{
       h = (h*3)+1;
     }while (h < Tamanho);
+    Comparacao ++;
     do{
       h = h/3;
       for(i = h; i < Tamanho; i++){
@@ -306,7 +349,7 @@ void ShellSort(TipoVetor *Vetor, int Tamanho){
     printf("\n====================================================================\n");
     printf("Numero de Comparações: %ld\n", Comparacao);
     printf("Numero de Movimentações: %ld\n", Movimentacao);
-    printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+    printf("Tempo de Execução: %.5f s", (float)GET_MS(inicio, fim)/1000000);
     printf("\n====================================================================\n");
 
 }
@@ -363,38 +406,62 @@ void QuickSort(TipoVetor *Vetor, int Tamanho){
   gettimeofday(&fim, NULL);
 
   printf("\n====================================================================\n");
-  printf("          #######--> Tempo de Execução: %.5f s <--#######", (float)GET_MS(inicio, fim)/1000000);
+  printf("Numero de Comparações: %ld\n", Comparacao);
+  printf("Numero de Movimentações: %ld\n", Movimentacao);
+  printf("Tempo de Execução: %.5f s", (float)GET_MS(inicio, fim)/1000000);
   printf("\n====================================================================\n");
 }
 
 //========== HEAP SORT ==================//
 
-void heapsort(TipoVetor a[], int n) {
+void heapsort(TipoVetor *a, int n) {
    int i = n / 2, pai, filho;
+   long int Comparacao = 0, Movimentacao = 0;
    TipoMatriz t;
+
+   struct timeval inicio, fim;
+   gettimeofday(&inicio, NULL);
+
+   Comparacao ++;
    while(1) {
+     Comparacao ++;
       if (i > 0) {
           i--;
           t = a->Matriz[i];
+          Movimentacao ++;
       } else {
           n--;
-          if (n == 0) return;
+          Comparacao ++;
+          if (n == 0)
+            break;
           t = a->Matriz[n];
           a->Matriz[n] = a->Matriz[0];
+          Movimentacao += 2;
       }
       pai = i;
       filho = i * 2 + 1;
+      Comparacao ++;
       while (filho < n) {
+          Comparacao += 2;
           if ((filho + 1 < n)  &&  (a->Matriz[filho + 1].IdentificadorDeMatriz > a->Matriz[filho].IdentificadorDeMatriz))
               filho++;
           if (a->Matriz[filho].IdentificadorDeMatriz > t.IdentificadorDeMatriz) {
              a->Matriz[pai] = a->Matriz[filho];
              pai = filho;
              filho = pai * 2 + 1;
+             Movimentacao ++;
           } else {
              break;
           }
       }
       a->Matriz[pai] = t;
+      Movimentacao ++;
    }
+   gettimeofday(&fim, NULL);
+
+   printf("\n====================================================================\n");
+   printf("Numero de Comparações: %ld\n", Comparacao);
+   printf("Numero de Movimentações: %ld\n", Movimentacao);
+   printf("Tempo de Execução: %.5f s", (float)GET_MS(inicio, fim)/1000000);
+   printf("\n====================================================================\n");
 }

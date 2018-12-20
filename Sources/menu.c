@@ -52,11 +52,22 @@ void menu_de_odenacoes(){
   printf("4. ShellSort.\n");
   printf("5. QuickSort.\n");
   printf("6. HeapSort.\n");
+  printf("0. Sair.\n");
 
   printf("\n");
 
   printf("====================================================================\n");
 
   printf("Algoritmo escolhido: ");
+}
+
+void menu_arquivo(){
+  printf("====================================================================\n");
+  printf("|                                                                  |\n");
+  printf("|               Nome do Arquivo: cenario[N]:                       |\n");
+  printf("|               N - 1 à 12                                         |\n");
+  printf("|               N - 0 Sair                                         |\n");
+  printf("|                                                                  |\n");
+  printf("====================================================================\n");
 
 }
